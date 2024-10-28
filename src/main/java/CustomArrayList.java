@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 
-public class CustomArrayList<E> {
+public class CustomArrayList<E> implements CustomList<E> {
     private static final int DEFAULT_CAPACITY = 10;
     private Object[] elements;
     private int size = 0;
@@ -62,6 +62,49 @@ public class CustomArrayList<E> {
     public E get(int index) {
         rangeCheck(index);
         return (E) elements[index];
+    }
+
+    public E set(int index, E element) {
+        rangeCheck(index);
+        E oldValue = (E) elements[index];
+        elements[index] = element;
+        return oldValue;
+    }
+
+    @Override
+    public int indexOf(Object element) {
+        if (element == null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (element.equals(elements[i])) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public int lastIndexOf(Object element) {
+        if (element == null) {
+            for (int i = size - 1; i >= 0; i--) {
+                if (elements[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = size - 1; i >= 0; i--) {
+                if (element.equals(elements[i])) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     public E remove(int index) {
